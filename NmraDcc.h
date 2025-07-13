@@ -752,6 +752,50 @@ extern void    notifyAdvancedCVAck (void) __attribute__ ( (weak));
  */
 extern void    notifyServiceMode (bool) __attribute__ ( (weak));
 
+
+/*+ 
+ * RCN-211
+ * Called when a fastclock message is received.
+ *
+ *  Inputs:
+ *      WeekDay - 0=Monday ... 6=Sunday.
+ *      Hour    - 0..23.
+ *      Minute  - 0..59.
+ *      Factor  - 0..63  0=clock stopped, 1 = real time, 2 = 2x real time, 3 = 3x real time etc.
+ *      Update  - true means clock has changed significantly.
+ *
+ *  Returns:
+ *      None
+ */
+extern void notifyFastClockTime( uint8_t  WeekDay, uint8_t Hour, uint8_t Minute, uint8_t Factor, bool Update) __attribute__ ( (weak));
+
+/*+ 
+ * RCN-211
+ * Called when a fastclock date message is received.
+ *
+ *  Inputs:
+ *      DayOfMonth  - 1..31.
+ *      Month       - 1..12  1=January ... 12=December.
+ *      Year        - 0-4095.
+ *
+ *  Returns:
+ *      None
+ */
+extern void notifyFastClockDate( uint8_t  DayOfMonth, uint8_t Month, uint16_t Year) __attribute__ ( (weak));
+
+/*+ 
+ * RCN-211
+ * Called when a system time message is received.
+ *
+ *  Inputs:
+ *      MillisSinceStartup  - milli seconds since system start. Wraps to zero approx. every 65 seconds.
+ *
+ *  Returns:
+ *      None
+ *
+ */
+extern void notifySystemTime( uint16_t MillisSinceStartup) __attribute__ ( (weak));
+
 // Deprecated, only for backward compatibility with version 1.4.2.
 // Don't use in new designs. These functions may be dropped in future versions
 extern void notifyDccAccState (uint16_t Addr, uint16_t BoardAddr, uint8_t OutputAddr, uint8_t State) __attribute__ ( (weak));
